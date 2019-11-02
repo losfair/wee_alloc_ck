@@ -29,6 +29,9 @@ size_classes = []
 # Enable fixed-sized, OS-independent backing memory implementation
 static_array_backend = ["spin"]
 
+# Enable user-provided mmap implementation.
+generic_mmap_backend = ["spin"]
+
 # This is for internal use only.
 use_std_for_test_debugging = []
 

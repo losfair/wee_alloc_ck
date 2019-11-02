@@ -181,7 +181,7 @@ extern crate alloc;
 
 #[cfg(feature = "use_std_for_test_debugging")]
 extern crate core;
-#[cfg(feature = "static_array_backend")]
+#[cfg(any(feature = "static_array_backend", feature = "generic_mmap_backend"))]
 extern crate spin;
 
 extern crate memory_units;
@@ -193,6 +193,10 @@ cfg_if! {
     if #[cfg(feature = "static_array_backend")] {
         mod imp_static_array;
         use imp_static_array as imp;
+    } else if #[cfg(feature = "generic_mmap_backend")] {
+        mod imp_generic_mmap;
+        use imp_generic_mmap as imp;
+        pub use imp_generic_mmap::MMAP_IMPL;
     } else if #[cfg(target_arch = "wasm32")] {
         mod imp_wasm32;
         use imp_wasm32 as imp;
